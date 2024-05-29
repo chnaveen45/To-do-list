@@ -2,13 +2,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const TodoModel = require('./Models/Todo'); // Make sure the path to your model is correct
+const TodoModel = require('./Models/Todo'); 
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
+
 mongoose.connect('mongodb://127.0.0.1:27017/book', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -20,7 +20,7 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-// Define routes
+
 app.get('/get', async (req, res) => {
   try {
     const tasks = await TodoModel.find();
@@ -41,8 +41,27 @@ app.post('/add', async (req, res) => {
 });
 
 
-  
-  
+app.put('/update/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { task } = req.body;
+    const updatedTask = await TodoModel.findByIdAndUpdate(id, { task }, { new: true });
+    res.json(updatedTask);
+  } catch (err) {
+    res.status(500).json({ error: 'Error updating task' });
+  }
+});
+
+
+app.delete('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await TodoModel.findByIdAndDelete(id);
+    res.json({ message: 'Task deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error deleting task' });
+  }
+});
 
 const PORT = 3001;
 app.listen(PORT, () => {
