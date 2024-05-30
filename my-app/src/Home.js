@@ -64,7 +64,7 @@ function Home() {
               {todo.task}
             </div>
             <div>
-              <FaEdit className='tt' onClick={() => handleEditClick(todo)} />
+              <FaEdit className='icon' onClick={() => handleEditClick(todo)} />
               <span><BsFillTrashFill className='icon' onClick={() => handleDelete(todo._id)} /></span>
             </div>
           </div>

@@ -36,6 +36,7 @@
 .checkbox .icon{
   margin-right: 5px;
   font-size: 15px;
+  margin-bottom:5px;
   
 }
 .task div span{
@@ -43,7 +44,7 @@
 }
 .task div .icon {
   cursor: pointer;
-  margin-top: 5px;
+  margin-bottom:1px;
 }
 .tt{
   margin-right: 15px;

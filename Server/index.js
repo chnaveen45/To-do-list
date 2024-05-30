@@ -4,7 +4,15 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const TodoModel = require('./Models/Todo'); 
 
-const app = express();
+const app = express(); 
+
+
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+const postlogin = require('./routes/postlogin'); 
+const loginRoute = require('./routes/Login');
+
 app.use(cors());
 app.use(express.json());
 
@@ -62,6 +70,11 @@ app.delete('/delete/:id', async (req, res) => {
     res.status(500).json({ error: 'Error deleting task' });
   }
 });
+
+
+app.use('/postlogin', postlogin);
+app.use('/login', loginRoute);
+
 
 const PORT = 3001;
 app.listen(PORT, () => {
